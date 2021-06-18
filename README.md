@@ -18,10 +18,15 @@ This is a wordpress plugin which helps you to capture subscribers from your word
 [mcsub-form]
 
 ### Shortcode Attributes
-'title' = Form title your wish to use
-'dlink' = Download link to the file you wish to give to your subscribers after a successful subscription
-'success_text_color' = Preferred color for success message after subscription
-'error_text_color' = Preferred color for error message during subscription
+| Attribute | Description  |
+| --- | --- |
+| `title` | Form title your wish to use|
+| `dlink` | Download link to the file you wish to give to your subscribers after a successful subscription |
+| `success_text_color` | Preferred color for success message after subscription |
+| `error_text_color` | Preferred color for error message during subscription |
+
+
+
 
 
 
