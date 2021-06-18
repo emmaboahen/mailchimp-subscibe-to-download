@@ -61,7 +61,7 @@ function validateAndSubmitForm($form) { //function to validate subscriber inputs
 function registerSubscriber(serializedDataInJson) { //function to save subscriber details in mailchimp list
     jQuery.ajax({
         type: 'post',
-        url: 'https://test.cors.workers.dev/?' + mcsd_ajax_object.ajax_url, //using cors proxy since mailchimp does not support cors
+        url: 'https://cors-anywhere.gopeartech.workers.dev/?' + mcsd_ajax_object.ajax_url, //using cors proxy since mailchimp does not support cors
         data: serializedDataInJson,
         beforeSend: function (request) {
             request.setRequestHeader("Authorization", "Bearer " + mcsd_ajax_object.api_key);
