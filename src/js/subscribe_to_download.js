@@ -9,8 +9,8 @@ jQuery(document).ready(function ($) {
 		window.mcsd_response_div.text("");
 		window.mcsd_submit_btn = $(this);
 		window.mcsd_dlink =$('#dlk_' + formid).val();
-		window.succtc = $('#succtc' + formid).val();
-		window.errtc =$('#errtc' + formid).val();
+		window.succtc = $('#succtc' + formid).val();//success text color value
+		window.errtc =$('#errtc' + formid).val();//error text color value
 		
         var $form = $('#mcsd_form_' + formid);
         if ($form.length > 0) {

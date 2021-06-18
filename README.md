@@ -15,7 +15,7 @@ This is a wordpress plugin which helps you to capture subscribers from your word
 ## Shortcodes
 
 ### Form Shortcode
-[mcsub-form]
+Enter the shortcode [mcsub-form] on any part of your page to render the subscription form
 
 ### Shortcode Attributes
 | Attribute | Description  |
@@ -24,6 +24,7 @@ This is a wordpress plugin which helps you to capture subscribers from your word
 | `dlink` | Download link to the file you wish to give to your subscribers after a successful subscription |
 | `success_text_color` | Preferred color for success message after subscription |
 | `error_text_color` | Preferred color for error message during subscription |
+| `button_text` | Text to show on your form's submit button |
 
 
 

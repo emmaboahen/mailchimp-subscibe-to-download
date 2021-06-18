@@ -50,11 +50,12 @@ class MailchimpSubscribeToDownloadForm{
             'dlink'=>'',
 			      'success_text_color'=>'#000',
 			      'error_text_color'=>'#000',
+            'button_text'=>'Download',
 			      'uid'=>uniqid()
         ), $atts
       );
 
-      $str= '<form id="mcsd_form_'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'" action="https://gopeartech.us20.list-manage.com/subscribe/post" method="post">
+      $str= '<form id="mcsd_form_'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'" action="#" method="post">
                 <input type="hidden" value='.esc_html__( $mcsd_atts['dlink'], 'mcsub-form' ).' id="dlk_'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'">
                 <input type="hidden" value='.esc_html__( $mcsd_atts['success_text_color'], 'mcsub-form' ).' id="succtc'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'">
                 <input type="hidden" value='.esc_html__( $mcsd_atts['error_text_color'], 'mcsub-form' ).' id="errtc'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'">
@@ -339,7 +340,7 @@ class MailchimpSubscribeToDownloadForm{
                   </div>
 
     
-        <button type="submit" class="btn btn-primary mcsd_download_btn mb-3" id="'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'"><i class="fa fa-spinner fa-spin" style="display:none"></i> Download</button>
+        <button type="submit" class="btn btn-primary mcsd_download_btn mb-3" id="'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'"><i class="fa fa-spinner fa-spin" style="display:none"></i>'.esc_html__( $mcsd_atts['button_text'], 'mcsub-form' ).'</button>
       </form>';
         
         //Return to display
