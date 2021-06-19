@@ -55,7 +55,7 @@ class MailchimpSubscribeToDownloadForm{
         ), $atts
       );
 
-      $str= '<form id="mcsd_form_'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'" action="http://xxxxx.us#.list-manage1.com/subscribe/post" method="post">
+      $str= '<form id="mcsd_form_'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'" action="https://xxxxx.us#.list-manage1.com/subscribe/post" method="post">
                 <input type="hidden" value='.esc_html__( $mcsd_atts['dlink'], 'mcsub-form' ).' id="dlk_'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'">
                 <input type="hidden" value='.esc_html__( $mcsd_atts['success_text_color'], 'mcsub-form' ).' id="succtc'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'">
                 <input type="hidden" value='.esc_html__( $mcsd_atts['error_text_color'], 'mcsub-form' ).' id="errtc'.esc_html__( $mcsd_atts['uid'], 'mcsub-form' ).'">
