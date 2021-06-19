@@ -33,19 +33,13 @@ function validateAndSubmitForm($form) { //function to validate subscriber inputs
     $form.validate({
         rules: {
             FNAME: "required",
-            ORG: "required",
             EMAIL: {
                 required: true,
                 email: true
             },
-            COUNTRY: {
-				required: true,
-			}
-
         },
         messages: {
             FNAME: "Please enter your name",
-            ORG: "Please enter your organization",
             EMAIL: "Please enter a valid email address",
         },
         submitHandler: function (form) {
