@@ -7,10 +7,10 @@ This is a wordpress plugin which helps you to capture subscribers from your word
 3. Activate the plugin
 
 ## Settings
-1. Click on the plugin settings link from your dashboard
+1. Click on the plugin settings link from your dashboard (Link name: Mailchimp: Subscribe To Download)
 2. Create an audience list and api key in your mailchimp account
 3. Enter your api key and mailing list id in the plugin settings on your wordpress dashboard
-4. Enter the server id you find here:
+4. Enter your server id. Usually when you login to mailchimp, your dashboard link looks like this "https://[SERVER_ID].admin.mailchimp.com/". Therefore if we have a link like "https://us20.admin.mailchimp.com/", our server id will be `us20`.
 
 ## Shortcodes
 
