@@ -26,6 +26,9 @@ Enter the shortcode [mcsub-form] on any part of your page to render the subscrip
 | `error_text_color` | Preferred color for error message during subscription |
 | `button_text` | Text to show on your form's submit button |
 
+Full example of shortcode in use:
+[mcsub-form title="My Test Form" dlink="your file download link" success_text_color="green" error_text_color="red" button_text="Subscribe"]
+
 
 
 
