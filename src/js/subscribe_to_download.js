@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    $(".mcsd_download_btn").click(function () {
+    $(".mcsd_download_btn").on('click',function () {
         var formid = $(this).attr('id');
 
 		//setting global js variables for subscribe activity
@@ -22,14 +22,6 @@ jQuery(document).ready(function ($) {
 });
 
 function validateAndSubmitForm($form) { //function to validate subscriber inputs and finally submit to mailchimp
-    var serializedFormData = $form.serializeArray();
-
-    var formDataInJson = jQFormSerializeArrToJson(serializedFormData);
-    var dataToSend = {
-        email_address: formDataInJson.EMAIL,
-        status: 'subscribed',
-        merge_fields: formDataInJson
-    }
     $form.validate({
         rules: {
             FNAME: "required",
@@ -43,9 +35,18 @@ function validateAndSubmitForm($form) { //function to validate subscriber inputs
             EMAIL: "Please enter a valid email address",
         },
         submitHandler: function (form) {
-		
-            registerSubscriber(JSON.stringify(dataToSend));
-		
+			
+			var serializedFormData =jQuery("#" + form.id).serializeArray();
+
+    		var formDataInJson = jQFormSerializeArrToJson(serializedFormData);
+
+			var dataToSend = {
+				email_address: formDataInJson.EMAIL,
+				status: 'subscribed',
+				merge_fields: formDataInJson
+			}
+			var finalData = JSON.stringify(dataToSend);
+            registerSubscriber(finalData);
             return false;
         }
     });
@@ -54,15 +55,15 @@ function validateAndSubmitForm($form) { //function to validate subscriber inputs
 
 function registerSubscriber(serializedDataInJson) { //function to save subscriber details in mailchimp list
     jQuery.ajax({
-        type: 'post',
+        type: 'POST',
         url: 'https://cors-anywhere.gopeartech.workers.dev/?' + mcsd_ajax_object.ajax_url, //using cors proxy since mailchimp does not support cors
         data: serializedDataInJson,
         beforeSend: function (request) {
             request.setRequestHeader("Authorization", "Bearer " + mcsd_ajax_object.api_key);
-			window.mcsd_submit_btn.children("i").show();
+			window.mcsd_submit_btn.children("i").show(); //show loading icon on button when submitting
         },
 		complete: function (data) {
-      		window.mcsd_submit_btn.children("i").hide();
+      		window.mcsd_submit_btn.children("i").hide(); //hide loading icon after submission complete
      	},
         cache: false,
         dataType: 'json',
@@ -70,35 +71,30 @@ function registerSubscriber(serializedDataInJson) { //function to save subscribe
         error: function (err) { 
 			switch(err.status){
 				case 400:
-					if(window.succtc)
-						window.mcsd_response_div.css('color', window.succtc);
-					window.mcsd_response_div.text("Thank you. Your download will begin shortly!");
-					jQuery("#mcsd_form_" + window.mcsd_foorm_id).find("input[type=text], select").val("");
-					if(window.mcsd_dlink)//begin download if download link is set
-						downloadFile(window.mcsd_dlink);
+					if(err.responseJSON.title=="Member Exists" && window.mcsd_dlink){ //download pdf for person if already a member
+						showSuccessResponseInUi();
+						downloadFile(window.mcsd_dlink);//begin download if download link is set
+					}else{
+						showErrorResponseInUi(err.responseJSON.detail);
+					}
+						
+					jQuery("#mcsd_form_" + window.mcsd_foorm_id).find("input[type=text], select").val("");	
 					break;
 				default:
-					 if(window.errtc)//if error text color is set, use error text color(errtc) for your feeback text
-                		window.mcsd_response_div.css('color',window.errtc);
-					window.mcsd_response_div.text("Could not connect to the registration server. Please try again later.");
+					showErrorResponseInUi();	
 					break;
 					
 			}
 		},
         success: function (data) {
-            console.log(data);
-            if (data.result != "success") {
+            if (data.status != "subscribed") {
                 // Something went wrong, do something to notify the user.
-                if(window.errtc)
-                	window.mcsd_response_div.css('color',window.errtc);
-				window.mcsd_response_div.text("Could not connect to the registration server. Please try again later.");
+                showErrorResponseInUi();
             } else {
                 // It worked, carry on...
-                	if(window.succtc)
-						window.mcsd_response_div.css('color', window.succtc);
-						window.mcsd_response_div.text = "Thank you. Your download will begin shortly!";
-					if(window.mcsd_dlink)//begin download if download link is set
-						downloadFile(window.mcsd_dlink);
+   					showSuccessResponseInUi();
+					downloadFile(window.mcsd_dlink);
+					jQuery("#mcsd_form_" + window.mcsd_foorm_id).find("input[type=text], select").val("");	
             }
         }
     });
@@ -133,6 +129,22 @@ function downloadFile(fileLink){ //function to download file using ajax
         }
     });
 }
+
+function showSuccessResponseInUi(){
+	 if(window.succtc){//if success text color is set, use it
+	 	window.mcsd_response_div.css('color', window.succtc);
+	 }
+	 window.mcsd_response_div.text("Thank you. Your download will begin shortly!"); 
+}
+
+function showErrorResponseInUi(resp="Could not connect to the registration server. Please try again later."){
+	 if(window.errtc){//if error text color is set, use error text color(errtc) for your feeback text
+        window.mcsd_response_div.css('color',window.errtc);
+	 }
+	window.mcsd_response_div.text(resp);
+}
+
+
 
 
 
